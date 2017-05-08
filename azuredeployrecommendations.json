@@ -186,7 +186,7 @@
                         "name": "[variables('virtualMachines_LegacyXML_name')]",
                         "createOption": "FromImage",
                         "vhd": {
-                            "uri": "[concat('https', '://', variables('storageAccounts_personalisationdisks880_name'), '.blob.core.windows.net', concat('/vhds/', variables('virtualMachines_LegacyXML_name'),'20170502103000.vhd'))]"
+                            "uri": "[concat('https', '://', variables('storageAccounts_recommendationdisks880_name'), '.blob.core.windows.net', concat('/vhds/', variables('virtualMachines_LegacyXML_name'),'20170502103000.vhd'))]"
                         },
                         "caching": "ReadWrite"
                     },
@@ -216,7 +216,7 @@
                 }
             },
             "dependsOn": [
-                "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccounts_personalisationdisks880_name'))]",
+                "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccounts_recommendationdisks880_name'))]",
                 "[resourceId('Microsoft.Network/networkInterfaces', variables('networkInterfaces_legacyxml335_name'))]",
                 "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccounts_personalisationdiag186_name'))]"
             ]
@@ -364,7 +364,7 @@
                 "tier": "Standard"
             },
             "kind": "Storage",
-            "name": "[variables('storageAccounts_personalisationdisks880_name')]",
+            "name": "[variables('storageAccounts_recommendationdisks880_name')]",
             "apiVersion": "2016-01-01",
             "location": "[resourceGroup().location]",
             "tags": {},
