@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "deploymentName": {
-            "defaultValue": "Loyalty",
+            "defaultValue": "Recommendations",
             "type": "string"
         },
         "service_recommendationsapim_name": {
@@ -96,7 +96,7 @@
         },
         "acrAdminUserEnabled": {
         "type": "bool",
-        "defaultValue": false,
+        "defaultValue": true,
         "metadata": {
             "description": "Enable admin user that have push / pull permission to the registry."
             }
