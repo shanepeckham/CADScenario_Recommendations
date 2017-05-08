@@ -1,0 +1,4 @@
+1, Latte, White
+2, Americano, Black
+3, Cappucino, White
+4, Espresso, Black

@@ -1,0 +1,616 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "deploymentName": {
+            "defaultValue": "Loyalty",
+            "type": "string"
+        },
+        "service_recommendationsapim_name": {
+            "defaultValue": "recommendationsapim",
+            "type": "string"
+        },
+        "accounts_RecommendationsCS_name": {
+            "defaultValue": "RecommendationsCS",
+            "type": "string"
+        },
+        "virtualMachines_LegacyXML_name": {
+            "defaultValue": "LegacyXML",
+            "type": "string"
+        },
+        "networkInterfaces_legacyxml335_name": {
+            "defaultValue": "legacyxml335",
+            "type": "string"
+        },
+        "networkSecurityGroups_LegacyXML_nsg_name": {
+            "defaultValue": "LegacyXML-nsg",
+            "type": "string"
+        },
+        "publicIPAddresses_LegacyXML_ip_name": {
+            "defaultValue": "LegacyXML-ip",
+            "type": "string"
+        },
+        "virtualNetworks_Recommendations_vnet_name": {
+            "defaultValue": "Recommendations-vnet",
+            "type": "string"
+        },
+        "storageAccounts_recommendationsdiag186_name": {
+            "defaultValue": "recommendationsdiag186",
+            "type": "string"
+        },
+        "storageAccounts_recommendationdisks880_name": {
+            "defaultValue": "recommendationdisks880",
+            "type": "string"
+        },
+        "storageAccounts_recommendationsacs142940_name": {
+            "defaultValue": "recommendationsacs142940",
+            "type": "string"
+        },
+        "serverfarms_ServicePlan5265b961_8950_name": {
+            "defaultValue": "ServicePlan5265b961-8950",
+            "type": "string"
+        },
+        "sites_recommendationsapp8_name": {
+            "defaultValue": "recommendationsapp8",
+            "type": "string"
+        },
+        "config_web_name": {
+            "defaultValue": "recommendationsapp8/web",
+            "type": "string"
+        },
+        "APIM_Publisher_Email": {
+           "defaultValue": "test@test.com",
+           "type": "string"    
+        },
+        "APIM_Publisher_Name": {
+           "defaultValue": "test",
+           "type": "string"
+        },
+         "ACRName": {
+           "defaultValue": "RecommendationsACS",
+           "type": "string"
+        },
+        "dockerImageName": {
+           "defaultValue": "RecommendationsACS",
+           "type": "string"
+        },
+        "vmSize": {
+          "type": "string",
+          "defaultValue": "Standard_DS1_v2",
+          "allowedValues": [
+            "Standard_D1_v2",
+            "Standard_D2_v2",
+            "Standard_DS1_v2",
+            "Standard_A0",
+            "Standard_A1",
+            "Standard_A2",
+            "Standard_A3",
+            "Basic_A1",
+            "Basic_A2",
+            "Basic_A3",
+            "Basic_A4"
+          ],
+          "metadata": {
+            "description": "This is the size of your VM"
+          }
+        },
+        "acrAdminUserEnabled": {
+        "type": "bool",
+        "defaultValue": false,
+        "metadata": {
+            "description": "Enable admin user that have push / pull permission to the registry."
+            }
+        }
+    },
+    "variables": {
+           "service_recommendationsapim_name": "[concat(parameters('service_recommendationsapim_name'), uniqueString(parameters('deploymentName')))]",
+           "accounts_RecommendationsCS_name": "[concat(parameters('accounts_RecommendationsCS_name'), uniqueString(parameters('deploymentName')))]",
+            "virtualMachines_LegacyXML_name": "[concat(parameters('virtualMachines_LegacyXML_name'), uniqueString(parameters('deploymentName')))]",
+            "networkInterfaces_legacyxml335_name": "[concat(parameters('networkInterfaces_legacyxml335_name'), uniqueString(parameters('deploymentName')))]",
+            "networkSecurityGroups_LegacyXML_nsg_name": "[concat(parameters('networkSecurityGroups_LegacyXML_nsg_name'), uniqueString(parameters('deploymentName')))]",
+            "publicIPAddresses_LegacyXML_ip_name": "[concat(parameters('publicIPAddresses_LegacyXML_ip_name'), uniqueString(parameters('deploymentName')))]",
+            "virtualNetworks_Recommendations_vnet_name": "[concat(parameters('virtualNetworks_Recommendations_vnet_name'), uniqueString(parameters('deploymentName')))]",
+            "storageAccounts_recommendationsdiag186_name": "[concat(parameters('storageAccounts_recommendationsdiag186_name'), uniqueString(parameters('deploymentName')))]",
+            "storageAccounts_recommendationdisks880_name": "[concat(parameters('storageAccounts_recommendationdisks880_name'), uniqueString(parameters('deploymentName')))]",
+            "storageAccounts_recommendationsacs142940_name": "[concat(parameters('storageAccounts_recommendationsacs142940_name'), uniqueString(parameters('deploymentName')))]",
+            "serverfarms_ServicePlan5265b961_8950_name": "[concat(parameters('serverfarms_ServicePlan5265b961_8950_name'), uniqueString(parameters('deploymentName')))]",
+            "sites_recommendationsapp8_name": "[concat(parameters('sites_recommendationsapp8_name'), uniqueString(parameters('deploymentName')))]",
+            "config_web_name": "[concat(parameters('config_web_name'), uniqueString(parameters('deploymentName')))]",
+            "acrStorageId": "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccounts_recommendationsacs142940_name'))]",
+            "ACRName": "[concat(parameters('ACRName'), uniqueString(parameters('deploymentName')))]"
+    },
+    "resources": [
+        {
+            "comments": "",
+            "type": "Microsoft.ApiManagement/service",
+            "sku": {
+                "name": "Developer",
+                "capacity": 1
+            },
+            "name": "[variables('service_recommendationsapim_name')]",
+            "apiVersion": "2016-07-07",
+            "location": "[resourceGroup().location]",
+            "tags": {},
+            "properties": {
+                "publisherEmail": "[parameters('APIM_Publisher_Email')]",
+                "publisherName": "[parameters('APIM_Publisher_Name')]",
+                "provisioningState": "Succeeded",
+                "targetProvisioningState": "",
+                "createdAtUtc": "2017-05-04T05:04:39.7256019Z",
+                "runtimeUrl": "[concat('https://', variables('service_recommendationsapim_name'),'.azure-api.net')]",
+                "portalUrl": "[concat('https://', variables('service_recommendationsapim_name'),'.portal.azure-api.net')]",
+                "managementApiUrl": "[concat('https://', variables('service_recommendationsapim_name'),'.management.azure-api.net')]",
+                "scmUrl": "[concat('https://', variables('service_recommendationsapim_name'),'.scm.azure-api.net')]",
+                "addresserEmail": null,
+                "hostnameConfigurations": [],
+                "staticIPs": [],
+                "additionalLocations": null,
+                "vpnconfiguration": null,
+                "customProperties": null,
+                "vpnType": 0
+            },
+            "dependsOn": []
+        },
+        {
+            "comments": "",
+            "type": "Microsoft.CognitiveServices/accounts",
+            "sku": {
+                "name": "F0"
+            },
+            "kind": "Recommendations",
+            "name": "[variables('accounts_RecommendationsCS_name')]",
+            "apiVersion": "2016-02-01-preview",
+            "location": "westus",
+            "properties": {},
+            "dependsOn": []
+        },
+        {
+            "comments": "",
+            "type": "Microsoft.Compute/virtualMachines",
+            "name": "[variables('virtualMachines_LegacyXML_name')]",
+            "apiVersion": "2016-04-30-preview",
+            "location": "[resourceGroup().location]",
+            "properties": {
+                "hardwareProfile": {
+                    "vmSize": "[parameters('vmSize')]"
+                },
+                "storageProfile": {
+                    "imageReference": {
+                        "publisher": "MicrosoftWindowsServer",
+                        "offer": "WindowsServer",
+                        "sku": "2012-R2-Datacenter",
+                        "version": "latest"
+                    },
+                    "osDisk": {
+                        "osType": "Windows",
+                        "name": "[variables('virtualMachines_LegacyXML_name')]",
+                        "createOption": "FromImage",
+                        "vhd": {
+                            "uri": "[concat('https', '://', variables('storageAccounts_personalisationdisks880_name'), '.blob.core.windows.net', concat('/vhds/', variables('virtualMachines_LegacyXML_name'),'20170502103000.vhd'))]"
+                        },
+                        "caching": "ReadWrite"
+                    },
+                    "dataDisks": []
+                },
+                "osProfile": {
+                    "computerName": "[variables('virtualMachines_LegacyXML_name')]",
+                    "adminUsername": "MiniCADAdmin",
+                    "windowsConfiguration": {
+                        "provisionVMAgent": true,
+                        "enableAutomaticUpdates": true
+                    },
+                    "secrets": []
+                },
+                "networkProfile": {
+                    "networkInterfaces": [
+                        {
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces', variables('networkInterfaces_legacyxml335_name'))]"
+                        }
+                    ]
+                },
+                "diagnosticsProfile": {
+                    "bootDiagnostics": {
+                        "enabled": true,
+                        "storageUri": "[concat('https', '://', variables('storageAccounts_personalisationdiag186_name'), '.blob.core.windows.net', '/')]"
+                    }
+                }
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccounts_personalisationdisks880_name'))]",
+                "[resourceId('Microsoft.Network/networkInterfaces', variables('networkInterfaces_legacyxml335_name'))]",
+                "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccounts_personalisationdiag186_name'))]"
+            ]
+        },
+        {
+            "comments": "",
+            "type": "Microsoft.Network/networkInterfaces",
+            "name": "[variables('networkInterfaces_legacyxml335_name')]",
+            "apiVersion": "2016-03-30",
+            "location": "[resourceGroup().location]",
+            "properties": {
+                "ipConfigurations": [
+                    {
+                        "name": "ipconfig1",
+                        "properties": {
+                            "privateIPAddress": "",
+                            "privateIPAllocationMethod": "Dynamic",
+                            "publicIPAddress": {
+                                "id": "[resourceId('Microsoft.Network/publicIPAddresses', variables('publicIPAddresses_LegacyXML_ip_name'))]"
+                            },
+                            "subnet": {
+                                "id": "[concat(resourceId('Microsoft.Network/virtualNetworks', variables('virtualNetworks_Personalisation_vnet_name')), '/subnets/default')]"
+                            }
+                        }
+                    }
+                ],
+                "dnsSettings": {
+                    "dnsServers": []
+                },
+                "enableIPForwarding": false,
+                "networkSecurityGroup": {
+                    "id": "[resourceId('Microsoft.Network/networkSecurityGroups', variables('networkSecurityGroups_LegacyXML_nsg_name'))]"
+                }
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/publicIPAddresses', variables('publicIPAddresses_LegacyXML_ip_name'))]",
+                "[resourceId('Microsoft.Network/virtualNetworks', variables('virtualNetworks_Personalisation_vnet_name'))]",
+                "[resourceId('Microsoft.Network/networkSecurityGroups', variables('networkSecurityGroups_LegacyXML_nsg_name'))]"
+            ]
+        },
+        {
+            "comments": "",
+            "type": "Microsoft.Network/networkSecurityGroups",
+            "name": "[variables('networkSecurityGroups_LegacyXML_nsg_name')]",
+            "apiVersion": "2016-03-30",
+            "location": "[resourceGroup().location]",
+            "properties": {
+                "securityRules": [
+                    {
+                        "name": "default-allow-rdp",
+                        "properties": {
+                            "protocol": "Tcp",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "3389",
+                            "sourceAddressPrefix": "*",
+                            "destinationAddressPrefix": "*",
+                            "access": "Allow",
+                            "priority": 1000,
+                            "direction": "Inbound"
+                        }
+                    },
+                    {
+                        "name": "Outbound443",
+                        "properties": {
+                            "protocol": "Tcp",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "443",
+                            "sourceAddressPrefix": "*",
+                            "destinationAddressPrefix": "*",
+                            "access": "Allow",
+                            "priority": 100,
+                            "direction": "Outbound"
+                        }
+                    },
+                    {
+                        "name": "TCP443",
+                        "properties": {
+                            "protocol": "Tcp",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "80",
+                            "sourceAddressPrefix": "*",
+                            "destinationAddressPrefix": "*",
+                            "access": "Allow",
+                            "priority": 110,
+                            "direction": "Outbound"
+                        }
+                    }
+                ]
+            },
+            "dependsOn": []
+        },
+        {
+            "comments": "",
+            "type": "Microsoft.Network/publicIPAddresses",
+            "name": "[variables('publicIPAddresses_LegacyXML_ip_name')]",
+            "apiVersion": "2016-03-30",
+            "location": "[resourceGroup().location]",
+            "properties": {
+                "publicIPAllocationMethod": "Dynamic",
+                "idleTimeoutInMinutes": 4
+            },
+            "dependsOn": []
+        },
+        {
+            "comments": "",
+            "type": "Microsoft.Network/virtualNetworks",
+            "name": "[variables('virtualNetworks_Personalisation_vnet_name')]",
+            "apiVersion": "2016-03-30",
+            "location": "[resourceGroup().location]",
+            "properties": {
+                "addressSpace": {
+                    "addressPrefixes": []
+                },
+                "subnets": [
+                    {
+                        "name": "default",
+                        "properties": {
+                            "addressPrefix": ""
+                        }
+                    }
+                ]
+            },
+            "dependsOn": []
+        },
+        {
+            "comments": "",
+            "type": "Microsoft.Storage/storageAccounts",
+            "sku": {
+                "name": "Standard_LRS",
+                "tier": "Standard"
+            },
+            "kind": "Storage",
+            "name": "[variables('storageAccounts_personalisationdiag186_name')]",
+            "apiVersion": "2016-01-01",
+            "location": "[resourceGroup().location]",
+            "tags": {},
+            "properties": {},
+            "dependsOn": []
+        },
+        {
+            "comments": "",
+            "type": "Microsoft.Storage/storageAccounts",
+            "sku": {
+                "name": "Standard_LRS",
+                "tier": "Standard"
+            },
+            "kind": "Storage",
+            "name": "[variables('storageAccounts_personalisationdisks880_name')]",
+            "apiVersion": "2016-01-01",
+            "location": "[resourceGroup().location]",
+            "tags": {},
+            "properties": {},
+            "dependsOn": []
+        },
+        {
+            "comments": "",
+            "type": "Microsoft.Storage/storageAccounts",
+            "sku": {
+                "name": "Standard_LRS",
+                "tier": "Standard"
+            },
+            "kind": "Storage",
+            "name": "[variables('storageAccounts_recommendationsacs142940_name')]",
+            "apiVersion": "2016-01-01",
+            "location": "[resourceGroup().location]",
+            "tags": {
+                "containerregistry": "[variables('ACRName')]"
+            },
+            "properties": {
+                "encryption": {
+                    "keySource": "Microsoft.Storage",
+                    "services": {
+                        "blob": {
+                            "enabled": true
+                        }
+                    }
+                }
+            },
+            "dependsOn": []
+        },
+        {
+        "name": "[variables('ACRName')]",
+        "type": "Microsoft.ContainerRegistry/registries",
+        "apiVersion": "2016-06-27-preview",
+        "location": "[resourceGroup().location]",
+        "comments": "Container registry for storing docker images",
+        "dependsOn": [
+            "[variables('storageAccounts_recommendationsacs142940_name')]"
+        ],
+        "tags": {
+            "displayName": "Container Registry",
+            "container.registry": "[variables('ACRName')]"
+        },
+        "properties": {
+                "adminUserEnabled": "[parameters('acrAdminUserEnabled')]",
+                "storageAccount": {
+                    "accessKey": "[listKeys(variables('acrStorageId'),'2015-06-15').key1]",
+                    "name": "[variables('storageAccounts_recommendationsacs142940_name')]"
+                }
+            }
+        },
+        {
+            "comments": "",
+            "type": "Microsoft.Web/serverfarms",
+            "sku": {
+                "name": "S1",
+                "tier": "Standard",
+                "size": "S1",
+                "family": "S",
+                "capacity": 1
+            },
+            "kind": "linux",
+            "name": "[variables('serverfarms_ServicePlan5265b961_8950_name')]",
+            "apiVersion": "2015-08-01",
+            "location": "West Europe",
+            "properties": {
+                "name": "[variables('serverfarms_ServicePlan5265b961_8950_name')]",
+                "numberOfWorkers": 1
+            },
+            "dependsOn": []
+        },
+        {
+            "comments": "",
+            "type": "Microsoft.Web/sites",
+            "kind": "app",
+            "name": "[variables('sites_recommendationsapp8_name')]",
+            "apiVersion": "2015-08-01",
+            "location": "West Europe",
+            "tags": {
+               },
+            "properties": {
+                "name": "[variables('sites_recommendationsapp8_name')]",
+                "hostNames": [
+                    "[concat(variables('sites_recommendationsapp8_name'), '.azurewebsites.net')]"
+                ],
+                "enabledHostNames": [
+                     "[concat(variables('sites_recommendationsapp8_name'), '.azurewebsites.net')]",
+                     "[concat(variables('sites_recommendationsapp8_name'), '.scm.azurewebsites.net')]"
+                ],
+                "hostNameSslStates": [
+                    {
+                        "name": "[concat(variables('sites_recommendationsapp8_name'),'.azurewebsites.net')]",
+                        "sslState": 0,
+                        "thumbprint": null,
+                        "ipBasedSslState": 0
+                    },
+                    {
+                        "name": "[concat(variables('sites_recommendationsapp8_name'),'.scm.azurewebsites.net')]",
+                        "sslState": 0,
+                        "thumbprint": null,
+                        "ipBasedSslState": 0
+                    }
+                ],
+                "siteConfig": {
+                    "appSettings": [
+                        {
+                            "name": "PORT",
+                            "value": "8000"
+                        },
+                        {
+                            "name": "DOCKER_CUSTOM_IMAGE_NAME",
+                            "value": "[concat(variables('ACRName'), '.azurecr.io/', parameters('dockerImageName'))]"
+                        },
+                        {
+                            "name": "DOCKER_REGISTRY_SERVER_URL",
+                            "value": "[concat('https://', variables('ACRName'), '.azurecr.io')]"
+                        },
+                        {
+                            "name": "DOCKER_REGISTRY_SERVER_USERNAME",
+                            "value": "[variables('ACRName')]"
+                        },
+                        {
+                            "name": "DOCKER_REGISTRY_SERVER_PASSWORD",
+                            "value": ""
+                        }
+                    ]
+                },
+                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('serverfarms_ServicePlan5265b961_8950_name'))]"
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/serverfarms', variables('serverfarms_ServicePlan5265b961_8950_name'))]"
+            ]
+        },
+        {
+            "comments": "",
+            "type": "Microsoft.Web/sites/config",
+            "name": "[variables('config_web_name')]",
+            "apiVersion": "2015-08-01",
+            "location": "West Europe",
+            "tags": {
+            },
+            "properties": {
+                "numberOfWorkers": 1,
+                "defaultDocuments": [
+                    "Default.htm",
+                    "Default.html",
+                    "Default.asp",
+                    "index.htm",
+                    "index.html",
+                    "iisstart.htm",
+                    "default.aspx",
+                    "index.php",
+                    "hostingstart.html"
+                ],
+                "netFrameworkVersion": "v4.0",
+                "phpVersion": "",
+                "pythonVersion": "",
+                "nodeVersion": "",
+                "linuxFxVersion": "",
+                "requestTracingEnabled": false,
+                "remoteDebuggingEnabled": false,
+                "remoteDebuggingVersion": "VS2012",
+                "httpLoggingEnabled": false,
+                "logsDirectorySizeLimit": 35,
+                "detailedErrorLoggingEnabled": false,
+                "publishingUsername": "variables('sites_recommendationsapp8_name')",
+                "publishingPassword": null,
+                "appSettings": null,
+                "metadata": null,
+                "connectionStrings": null,
+                "machineKey": null,
+                "handlerMappings": null,
+                "documentRoot": null,
+                "scmType": "None",
+                "use32BitWorkerProcess": true,
+                "webSocketsEnabled": false,
+                "alwaysOn": false,
+                "javaVersion": null,
+                "javaContainer": null,
+                "javaContainerVersion": null,
+                "appCommandLine": "",
+                "managedPipelineMode": 0,
+                "virtualApplications": [
+                    {
+                        "virtualPath": "/",
+                        "physicalPath": "site\\wwwroot",
+                        "preloadEnabled": false,
+                        "virtualDirectories": null
+                    }
+                ],
+                "winAuthAdminState": 0,
+                "winAuthTenantState": 0,
+                "customAppPoolIdentityAdminState": false,
+                "customAppPoolIdentityTenantState": false,
+                "runtimeADUser": null,
+                "runtimeADUserPassword": null,
+                "loadBalancing": 1,
+                "routingRules": [],
+                "experiments": {
+                    "rampUpRules": []
+                },
+                "limits": null,
+                "autoHealEnabled": false,
+                "autoHealRules": {
+                    "triggers": null,
+                    "actions": null
+                },
+                "tracingOptions": null,
+                "vnetName": "",
+                "siteAuthEnabled": false,
+                "siteAuthSettings": {
+                    "enabled": null,
+                    "unauthenticatedClientAction": null,
+                    "tokenStoreEnabled": null,
+                    "allowedExternalRedirectUrls": null,
+                    "defaultProvider": null,
+                    "clientId": null,
+                    "clientSecret": null,
+                    "issuer": null,
+                    "allowedAudiences": null,
+                    "additionalLoginParams": null,
+                    "isAadAutoProvisioned": false,
+                    "googleClientId": null,
+                    "googleClientSecret": null,
+                    "googleOAuthScopes": null,
+                    "facebookAppId": null,
+                    "facebookAppSecret": null,
+                    "facebookOAuthScopes": null,
+                    "twitterConsumerKey": null,
+                    "twitterConsumerSecret": null,
+                    "microsoftAccountClientId": null,
+                    "microsoftAccountClientSecret": null,
+                    "microsoftAccountOAuthScopes": null
+                },
+                "cors": null,
+                "push": null,
+                "apiDefinition": null,
+                "autoSwapSlotName": null,
+                "localMySqlEnabled": false,
+                "ipSecurityRestrictions": []
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/sites', variables('sites_recommendationsapp8_name'))]"
+            ]
+        }
+    ]
+}
