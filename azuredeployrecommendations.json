@@ -211,14 +211,14 @@
                 "diagnosticsProfile": {
                     "bootDiagnostics": {
                         "enabled": true,
-                        "storageUri": "[concat('https', '://', variables('storageAccounts_personalisationdiag186_name'), '.blob.core.windows.net', '/')]"
+                        "storageUri": "[concat('https', '://', variables('storageAccounts_recommendationsdiag186_name'), '.blob.core.windows.net', '/')]"
                     }
                 }
             },
             "dependsOn": [
                 "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccounts_recommendationdisks880_name'))]",
                 "[resourceId('Microsoft.Network/networkInterfaces', variables('networkInterfaces_legacyxml335_name'))]",
-                "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccounts_personalisationdiag186_name'))]"
+                "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccounts_recommendationsdiag186_name'))]"
             ]
         },
         {
@@ -349,7 +349,7 @@
                 "tier": "Standard"
             },
             "kind": "Storage",
-            "name": "[variables('storageAccounts_personalisationdiag186_name')]",
+            "name": "[variables('storageAccounts_recommendationsdiag186_name')]",
             "apiVersion": "2016-01-01",
             "location": "[resourceGroup().location]",
             "tags": {},
