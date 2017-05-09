@@ -35,15 +35,15 @@
             "type": "string"
         },
         "storageAccounts_recommendationsdiag186_name": {
-            "defaultValue": "recom186",
+            "defaultValue": "redi1860",
             "type": "string"
         },
         "storageAccounts_recommendationdisks880_name": {
-            "defaultValue": "recomdisk880",
+            "defaultValue": "redisk880",
             "type": "string"
         },
         "storageAccounts_recommendationsacs142940_name": {
-            "defaultValue": "recomacs12940",
+            "defaultValue": "recacs940",
             "type": "string"
         },
         "serverfarms_ServicePlan5265b961_8950_name": {
