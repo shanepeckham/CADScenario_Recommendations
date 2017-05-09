@@ -31,31 +31,31 @@
             "type": "string"
         },
         "virtualNetworks_Recommendations_vnet_name": {
-            "defaultValue": "Recommendations-vnet",
+            "defaultValue": "Recomm-vnet",
             "type": "string"
         },
         "storageAccounts_recommendationsdiag186_name": {
-            "defaultValue": "recommendationsdiag186",
+            "defaultValue": "recommdiag186",
             "type": "string"
         },
         "storageAccounts_recommendationdisks880_name": {
-            "defaultValue": "recommendationdisks880",
+            "defaultValue": "recommdisks880",
             "type": "string"
         },
         "storageAccounts_recommendationsacs142940_name": {
-            "defaultValue": "recommendationsacs142940",
+            "defaultValue": "recommacs142940",
             "type": "string"
         },
         "serverfarms_ServicePlan5265b961_8950_name": {
-            "defaultValue": "ServicePlan5265b961-8950",
+            "defaultValue": "SPlan5265b961-8950",
             "type": "string"
         },
         "sites_recommendationsapp8_name": {
-            "defaultValue": "recommendationsapp8",
+            "defaultValue": "recommapp8",
             "type": "string"
         },
         "config_web_name": {
-            "defaultValue": "recommendationsapp8/web",
+            "defaultValue": "recommapp8/web",
             "type": "string"
         },
         "APIM_Publisher_Email": {
@@ -67,7 +67,7 @@
            "type": "string"
         },
          "ACRName": {
-           "defaultValue": "RecommendationsACS",
+           "defaultValue": "RecommACS",
            "type": "string"
         },
         "dockerImageName": {
@@ -328,13 +328,15 @@
             "location": "[resourceGroup().location]",
             "properties": {
                 "addressSpace": {
-                    "addressPrefixes": []
+                    "addressPrefixes": [
+                        "172.16.0.0/24"
+                    ]
                 },
                 "subnets": [
                     {
                         "name": "default",
                         "properties": {
-                            "addressPrefix": ""
+                             "addressPrefix": "172.16.0.0/24"
                         }
                     }
                 ]
