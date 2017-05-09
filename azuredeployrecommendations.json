@@ -238,7 +238,7 @@
                                 "id": "[resourceId('Microsoft.Network/publicIPAddresses', variables('publicIPAddresses_LegacyXML_ip_name'))]"
                             },
                             "subnet": {
-                                "id": "[concat(resourceId('Microsoft.Network/virtualNetworks', variables('virtualNetworks_Personalisation_vnet_name')), '/subnets/default')]"
+                                "id": "[concat(resourceId('Microsoft.Network/virtualNetworks', variables('virtualNetworks_Recommendations_vnet_name')), '/subnets/default')]"
                             }
                         }
                     }
@@ -253,7 +253,7 @@
             },
             "dependsOn": [
                 "[resourceId('Microsoft.Network/publicIPAddresses', variables('publicIPAddresses_LegacyXML_ip_name'))]",
-                "[resourceId('Microsoft.Network/virtualNetworks', variables('virtualNetworks_Personalisation_vnet_name'))]",
+                "[resourceId('Microsoft.Network/virtualNetworks', variables('virtualNetworks_Recommendations_vnet_name'))]",
                 "[resourceId('Microsoft.Network/networkSecurityGroups', variables('networkSecurityGroups_LegacyXML_nsg_name'))]"
             ]
         },
@@ -323,7 +323,7 @@
         {
             "comments": "",
             "type": "Microsoft.Network/virtualNetworks",
-            "name": "[variables('virtualNetworks_Personalisation_vnet_name')]",
+            "name": "[variables('virtualNetworks_Recommendations_vnet_name')]",
             "apiVersion": "2016-03-30",
             "location": "[resourceGroup().location]",
             "properties": {
