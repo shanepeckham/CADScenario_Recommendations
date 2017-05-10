@@ -58,6 +58,10 @@
             "defaultValue": "recommapp8/web",
             "type": "string"
         },
+        "virtualMachines_LegacyXML_adminPassword": {
+            "defaultValue": "MiniCADAdmin123",
+            "type": "string"
+        },
         "APIM_Publisher_Email": {
            "defaultValue": "test@test.com",
            "type": "string"    
@@ -199,7 +203,8 @@
                         "provisionVMAgent": true,
                         "enableAutomaticUpdates": true
                     },
-                    "secrets": []
+                    "secrets": [],
+                    "adminPassword": "[parameters('virtualMachines_LegacyXML_adminPassword')]"
                 },
                 "networkProfile": {
                     "networkInterfaces": [
