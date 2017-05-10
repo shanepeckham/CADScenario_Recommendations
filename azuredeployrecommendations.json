@@ -167,7 +167,7 @@
         {
             "comments": "",
             "type": "Microsoft.Compute/virtualMachines",
-            "name": "[parameters('virtualMachines_LegacyXML_name')]",
+            "name": "[variables('virtualMachines_LegacyXML_name')]",
             "apiVersion": "2016-04-30-preview",
             "location": "[resourceGroup().location]",
             "properties": {
@@ -193,7 +193,7 @@
                     "dataDisks": []
                 },
                 "osProfile": {
-                    "computerName": "[variables('virtualMachines_LegacyXML_name')]",
+                    "computerName": "[parameters('virtualMachines_LegacyXML_name')]",
                     "adminUsername": "MiniCADAdmin",
                     "windowsConfiguration": {
                         "provisionVMAgent": true,
@@ -403,7 +403,10 @@
         "name": "[variables('ACRName')]",
         "type": "Microsoft.ContainerRegistry/registries",
         "apiVersion": "2017-03-01",
-        "location": "West Europe",
+        "location": "[resourceGroup().location]",
+        "sku": {
+            "name": "Basic"
+        },
         "comments": "Container registry for storing docker images",
         "dependsOn": [
             "[variables('storageAccounts_recommendationsacs142940_name')]"
