@@ -504,7 +504,10 @@
                         }
                     ]
                 },
-                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('serverfarms_ServicePlan5265b961_8950_name'))]"
+                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('serverfarms_ServicePlan5265b961_8950_name'))]",
+                "registryId": "[resourceId('Microsoft.ContainerRegistry/registries', variables('ACRName'))]"
+                
+
             },
             "dependsOn": [
                 "[resourceId('Microsoft.Web/serverfarms', variables('serverfarms_ServicePlan5265b961_8950_name'))]"
