@@ -1,6 +1,7 @@
 # *CAD Customer Recommendations Business Scenario Lab*
 
-Note, this Lab can be used as an extension to the Personalisation lab which may be found here ![alt text](https://github.com/shanepeckham/CADScenario_Personalisation). This will showcase a comprehensive and rich end to end scenario.
+Note, this Lab can be used as an extension to the Personalisation lab which may be found here 
+[Personalisation](https://github.com/shanepeckham/CADScenario_Personalisation). This will showcase a comprehensive and rich end to end scenario.
 
 # What is it?
 
