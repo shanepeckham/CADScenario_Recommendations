@@ -43,19 +43,17 @@ The following technology components are used in this solution:
 
 # The Lab component
 
-This solution will install and configure all of the components required to build the end to end Loyalty scenario. The Lab attendees just need to wire everything together in a Logic App. 
+This solution will install most of the components required to build the end to end Recommendations scenario. The Lab attendees need to configure a few components, install the on-Premise Data Gateway, prepare an API Management Policy and wire everything together in a Logic App. 
 
 # Preparing for the solution
 
-For this Lab you will require:
-* A cognitive services trial account key, get it here - https://www.microsoft.com/cognitive-services/en-us/sign-up
-* A Gmail account for sending emails, get it here - https://accounts.google.com/SignUp?service=mail&continue=http%3A%2F%2Fmail.google.com%2Fmail%2Fe-11-14a952576b5f2ffe90ec0dd9823744e0-46a962fbb7947b68059374ddde7f29b5490a6b4d
+For this Lab you will require (note, these items can be all be installed on the VM that will be provisioned during the lab):
+
 * Install Postman, get it here - https://www.getpostman.com
-* If using Windows 10 get Bash for Windows - https://msdn.microsoft.com/en-us/commandline/wsl/install_guide or putty if on an older version - http://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html
+* Install Docker, get it here - https://docs.docker.com/engine/installation/
+* Install the Logic App On-Premise Data Gateway, get it here - https://docs.microsoft.com/en-us/azure/logic-apps/logic-apps-gateway-install
 
 # How to install the solution
-
-[Complete step 1 below prior to attending the lab](#how-to-install-the-solution)
 
 ## 1. Provisioning the components: Select Deploy to Azure to deploy to your Azure instance that you are currently logged in to.
 
@@ -72,12 +70,13 @@ Select or create a Resource Group to deploy to and the only parameter you need t
 
 This will take roughly 30 minutes as this will provision:
 
-* Two VNETs
-* An Ubuntu VM and place in inside the VNET isolated with NSGs
-* An API Management instance (Developer Tier) and place it inside a subnet within the VNET
-* An App Service API app (Contact List) and deploy a node.js Swagger enabled API to it
-* An App Service serverless function with dynamic scaling and pricing
-* Storage accounts to house the VM VHD, the Function logging and the App Service API logging
+* One VNET
+* A Windows VM and place in inside the VNET isolated with NSGs
+* An API Management instance (Developer Tier)
+* An Azure Container Service Registry
+* A Linux App Service API app 
+* Storage accounts to house the VM VHD, the App Service API logging and the Azure Container Registry
+* A Cognitive Services account configured for the Recommendations API
 
 ## 2. Checking the Contact List API App: Once deployment is complete, navigate to your App Service API App, its default name will be CADAPIMasterSite[hash] and click on the URI in the overview blade, see below:
 
