@@ -4,19 +4,17 @@
 
 This repository will provision an environment that may be used as a Lab to build an end to end scenario that does the following:
 
-*	Query a Contact List API for a customer
-*	Query our legacy on-prem Ticket system to get the customer’s last feedback
-*	Perform sentiment analysis on this feedback
-*	Generate a digital discount coupon if they were dissatisfied
-*	Mail them the coupon
+*	Get the recommended products for a user based on product purchasing patterns. A sample dataset is provided but a custom one can be loaded too.
+*	Perform automated transformation 
+*	Prepare the output for a legacy website that is on-premise
 
 # What does it showcase?
 
-This solution brings together Infrastructure as a Service (IaaS), Platform as a Service (PaaS), Software as a Service (SaaS) and Serverless components on Microsoft Azure to build a realistic end to end scenario to nurture customers. Furthermore, the democratization of AI is tied in nicely by incorporating Cognitive Services to perform text analysis and determine the sentiment of a customer’s feedback.
+This solution brings together Infrastructure as a Service (IaaS), Platform as a Service (PaaS), Software as a Service (SaaS), Container as a Service (CaaS) and Serverless and Cognitive Services components on Microsoft Azure to build a realistic end to end scenario to generate recommendations for a customer based on other product purchase patterns using. This solution will show how an on-Premise XML File based legacy application can be quickly modernised to provide a microservice container based API for a front end such as a mobile application.
 
 # The end to end scenario
 
-This solution will query a customer datastore, then get the last support case associated with a customer from a different datastore, check the sentiment/satisfaction of the customer's last feedback and generate a digital discount coupon for them if their sentiment is determined to be dissatisfied. The coupon will then be emailed to the customer to redeem. 
+This solution will determine the list of recommended products for a particular customer and return the response in JSON. An asynchronous process will convert the message to XML and write it back to an On-Premise legacy XML File system.
 
 # The solution aims to show the following:
 
@@ -30,12 +28,13 @@ This solution will query a customer datastore, then get the last support case as
 
 The following technology components are used in this solution:
 
-*	Swagger enabled Node.js APIs running on Azure App Services (PaaS)
-*	Ubuntu with a custom extension template to rapidly provision and deploy a custom image with a running legacy mysql solution (IaaS) [Thanks Justin Davies for helping here](https://github.com/juda-ms)
+*	Swagger enabled Node.js APIs running in a container on the Azure Linux App Services (PaaS) (CaaS)
+*   The Azure Container Registry to privately and securely store approved container images
+*	A legacy Windows machine running on-Premise or on a VM that serves as an XML File system for a conceptual legacy website.
 *	Azure networking to isolate legacy workloads (IaaS)
-*	API Management to govern APIs and to bridge publicly accessible APIs with isolated APIs (SaaS) (IaaS)
-*	Azure functions to run dynamic ‘pay-as-you-go’ compute (Serverless) [Thanks Christof Claasens and Katrien de Graeve for the generate coupon function](https://github.com/xstof/Quiz) 
-*	Azure logic apps to provide serverless integration that is accessible to non-developers (Serveless)
+*	API Management to govern APIs and to perform automated JSON<-->XML conversion and IP Rate limiting
+*	Azure Logic apps to provide serverless integration that is accessible to non-developers (Serveless)
+*   The Logic apps on-Premise Data Gateway to connect to an on-Premise machine or a VM in an isolated VNET
 *	Azure Resource Manager templates to automate the provisioning and inflation of a full environment
 
 # Solution flow
