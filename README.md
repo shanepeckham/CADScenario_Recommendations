@@ -141,15 +141,12 @@ You should now see that the folder has been shared, see below:
 
 ![alt text](https://github.com/shanepeckham/CADScenario_Recommendations/blob/master/images/dg10.png)
 
-### Change the email addresses to in the contact API to your email
+### Now we need to install the On-Premise Data Gateway component within the Azure subscription
 
-* Navigate back to your API App in the Azure portal - e.g. http://cadapimastersite[hash].azurewebsites.net
-* Select the Advancted Tools blade and then click Go. This will open the Kudu console where we can be naughty and go and edit the source files 
-* In the top menu select Debug Console --> CMD
-* In the top tree folder structure click Site --> WWWRoot --> lib -- and click the pencil next to the contacts.json file. 
-* Change the email for the contact you want to change
-* Click Save
-* Restart your API App. This can be done from the Restart button on the overview blade
+Select New in the Azure portal and enter *Data Gateway* and select the entry for 'On-premises Data Gateway', see below:
+
+![alt text](https://github.com/shanepeckham/CADScenario_Recommendations/blob/master/images/dg11.png)
+![alt text](https://github.com/shanepeckham/CADScenario_Recommendations/blob/master/images/dg12.png)
 
 ## 3. Now we will import the Contact List API into the API Management solution
 
