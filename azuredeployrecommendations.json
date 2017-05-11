@@ -500,7 +500,7 @@
                         },
                         {
                             "name": "DOCKER_REGISTRY_SERVER_PASSWORD",
-                            "value": "[listKeys(variables('ACRName'),'2015-06-15').key1]"
+                            "value": "[listKeys(variables('ACRName'),'2017-03-01').key1]"
                         }
                     ]
                 },
