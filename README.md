@@ -1,5 +1,7 @@
 # *CAD Customer Recommendations Business Scenario Lab*
 
+Note, this Lab can be used as an extension to the Personalisation lab which may be found here ![alt text](https://github.com/shanepeckham/CADScenario_Personalisation). This will showcase a comprehensive and rich end to end scenario.
+
 # What is it?
 
 This repository will provision an environment that may be used as a Lab to build an end to end scenario that does the following:
@@ -83,6 +85,60 @@ This will take roughly 20-30 minutes as this will provision:
 Navigate to your VM, the default name will be LegacyXML[hash] and navigate to the Overview blade and copy the value in the field Public IP Address/DNS label, see below:
 
 ![alt text](https://github.com/shanepeckham/CADScenario_Recommendations/blob/master/images/legacyip.png)
+
+Connect to the machine via Remote Desktop with the following credentials:
+User: MiniCADAdmin
+Password: MiniCADAdmin123
+
+***Take note of the value in the domain as you may need to use this later
+
+Navigate to https://docs.microsoft.com/en-us/azure/logic-apps/logic-apps-gateway-install and download the Data Gateway.
+
+Click next on the first step of the install, see below:
+
+![alt text](https://github.com/shanepeckham/CADScenario_Recommendations/blob/master/images/dg1.png)
+
+Accept the default install location and accept the terms and conditions, see below:
+
+![alt text](https://github.com/shanepeckham/CADScenario_Recommendations/blob/master/images/dg2.png)
+
+You should now get to a screen that states that the install was successful, now you need to enter an email address to identify the gateway account, use the email address associated with your Azure subscription and click 'Sign in', see below:
+
+![alt text](https://github.com/shanepeckham/CADScenario_Recommendations/blob/master/images/dg3.png)
+
+Complete the logon process to Azure.
+
+Now you need to enter the Gatewat Server Name and a recovery key, see below:
+
+Enter *LegacyXML* as the Gateway Name and select a recovery key that you won't forget and copy it somewhere just in case. Ensure that the region highlighted below is the same as the region that you selected to deploy the components to from Step 1 above, see below:
+
+![alt text](https://github.com/shanepeckham/CADScenario_Recommendations/blob/master/images/dg4.png)
+
+The image below shows the region change option:
+
+![alt text](https://github.com/shanepeckham/CADScenario_Recommendations/blob/master/images/dg5.png)
+
+You should get a success screen as below:
+
+![alt text](https://github.com/shanepeckham/CADScenario_Recommendations/blob/master/images/dg6.png)
+
+### Now we need to create a share that will hold the XML Files for the legacy application
+
+Open up Windows Explorer and create a new folder on the C:\ drive called *ShoppingXML*, see below:
+
+![alt text](https://github.com/shanepeckham/CADScenario_Recommendations/blob/master/images/dg7.png)
+
+Now right click the ShoppingXML directory and select Properties --> Sharing, see below:
+
+![alt text](https://github.com/shanepeckham/CADScenario_Recommendations/blob/master/images/dg8.png)
+
+Select 'Share' and highlight the *MiniCADAdmin* user to share with and click the 'Share' button on the bottom right of the popup, see below:
+
+![alt text](https://github.com/shanepeckham/CADScenario_Recommendations/blob/master/images/dg9.png)
+
+You should now see that the folder has been shared, see below:
+
+![alt text](https://github.com/shanepeckham/CADScenario_Recommendations/blob/master/images/dg10.png)
 
 ### Change the email addresses to in the contact API to your email
 
