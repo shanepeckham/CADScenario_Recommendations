@@ -500,14 +500,11 @@
                         },
                         {
                             "name": "DOCKER_REGISTRY_SERVER_PASSWORD",
-                            "value": "[listKeys(variables('ACRName'),'2017-03-01').key1]"
+                            "value": ""
                         }
                     ]
                 },
-                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('serverfarms_ServicePlan5265b961_8950_name'))]",
-                "registryId": "[resourceId('Microsoft.ContainerRegistry/registries', variables('ACRName'))]"
-                
-
+                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('serverfarms_ServicePlan5265b961_8950_name'))]"
             },
             "dependsOn": [
                 "[resourceId('Microsoft.Web/serverfarms', variables('serverfarms_ServicePlan5265b961_8950_name'))]"
