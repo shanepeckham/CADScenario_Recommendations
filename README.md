@@ -66,9 +66,9 @@ For this Lab you will require (note, these items can be all be installed on the 
 
 Select or create a Resource Group to deploy to and the only parameter you need to change is the Deployment Name - give it any name of 12 characters or less as it will be used to generate a hash to ensure your site names are unique, see the image below:
 
-![alt text](https://github.com/shanepeckham/CADLab_Loyalty/blob/master/Images/deploymentname.png)
+![alt text](https://github.com/shanepeckham/CADScenario_Recommendations/blob/master/images/DeploymentName.png)
 
-This will take roughly 30 minutes as this will provision:
+This will take roughly 20-30 minutes as this will provision:
 
 * One VNET
 * A Windows VM and place in inside the VNET isolated with NSGs
@@ -78,21 +78,11 @@ This will take roughly 30 minutes as this will provision:
 * Storage accounts to house the VM VHD, the App Service API logging and the Azure Container Registry
 * A Cognitive Services account configured for the Recommendations API
 
-## 2. Checking the Contact List API App: Once deployment is complete, navigate to your App Service API App, its default name will be CADAPIMasterSite[hash] and click on the URI in the overview blade, see below:
+## 2. Installing the on-Premise Data Gateway for Logic Apps
 
-![alt text](https://github.com/shanepeckham/CADLab_Loyalty/blob/master/Images/App_URI.png)
+Navigate to your VM, the default name will be LegacyXML[hash] and navigate to the Overview blade and copy the value in the field Public IP Address/DNS label, see below:
 
-This will navigate you to a URL that will display the following message if it was provisioned correctly:
-```
-Cannot GET / 
-```
-Now type ``` /docs ``` after the azurewebsites.net part of the url and you should see the Swagger editor open with a test harness to test the API:
-
-![alt text](https://github.com/shanepeckham/CADLab_Loyalty/blob/master/Images/swaggerharness.png)
-
-You should now be able to test a few methods of the API to check if how it works. It will query 3 contacts and methods exist to query all, query by Id, query associated Case Number by Id and query contact Email by Id.
-
-Now copy the URL without the ``` /docs ``` component and paste is somewhere for retrieval later on.
+![alt text](https://github.com/shanepeckham/CADScenario_Recommendations/blob/master/images/legacyip.png)
 
 ### Change the email addresses to in the contact API to your email
 
