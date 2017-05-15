@@ -160,19 +160,21 @@ Click on the *Quick Start* blade, this will provide you with the relevant comman
 
 ![alt text](https://github.com/shanepeckham/CADScenario_Recommendations/blob/master/images/quickstartacs.png)
 
-This will navigate you to the Publisher portal, select Import API, see below:
+Now start a command/terminal window, create a directory called CADRecommendations and type the following:
 
-![alt text](https://github.com/shanepeckham/CADLab_Loyalty/blob/master/Images/importAPI.png)
+``` docker pull shanepeckham\cadrecommendations
+```
+This will pull down the container image to your local machine that we will use for our API later on.
 
-Now enter the following values:
+You should see a status similar to below:
 
-* Select "From Url"
-* Paste your API URL from step 2 and add ``` /swagger ``` on the end e.g. http://cadapimastersite[hash].azurewebsites.net/swagger
-* Select "Swagger" as the specification format
-* Select New API
-* Type "Contacts" into the Web API URL Suffix field
-* Click Products and select "Unlimited"
-* Click Save
+![alt text](https://github.com/shanepeckham/CADScenario_Recommendations/blob/master/images/dockerpullcad.png)
+
+Now we will push the image up to the Azure Container Registry, enter the following (from the quickstart screen):
+
+``` docker login recommacs[hash].azurecr.io
+```
+
 
 See below:
 
