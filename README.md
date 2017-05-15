@@ -190,8 +190,13 @@ Once this has completed, you will be able to see your container uploaded to the 
 
 ## 4. Deploy the container to App Services
 
-We will now deploy the container to Linux App Services. Navigate to your App Service App, it will have the name recommapp[hash, select the *Docker Container* menu option, see below:
+We will now deploy the container to Linux App Services. Navigate to your App Service App, it will have the name recommapp[hash, select the *Docker Container* menu option. We now need to add the provisioned container registry and uploaded container details. Enter the following values:
 
+*Image Source*: 'Private Registry'
+*Image and optional Tag*: ```recommendationsacs[hash].azurecr.io/cadrecommendations:latest``` This is your registry
+*Server URL*: ```https://recommendationsacs[hash].azurecr.io```
+*Username*: The username that is in the Container Registry Access Keys blade
+*Password*: The password that is in the Container Registry Access Keys blade
 
 
 Navigate to your VM, the default name will be CADLegacyAPI[hash] and navigate to the Overview blade and copy the value in the field Public IP Address/DNS label, see below:
