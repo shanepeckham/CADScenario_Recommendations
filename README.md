@@ -179,7 +179,11 @@ To get the username and password, navigate to the *Access Keys* blade, see below
 
 ![alt text](https://github.com/shanepeckham/CADScenario_Recommendations/blob/master/images/acskeys.png)
 
-You will now have imported an API that will now be accessible from the API Gateway. You can test it by clicking on Developer Portal, see below:
+You will receive a 'Login Succeeded' message. Now type the following:
+```
+docker tag shanepeckham/cadrecommendations recommacs[hash].azurecr.io/cadrecommendations
+docker push recommacs[hash].azurecr.io/cadrecommendations
+```
 
 ![alt text](https://github.com/shanepeckham/CADLab_Loyalty/blob/master/Images/developerportal.png)
 
