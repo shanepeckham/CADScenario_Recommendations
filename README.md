@@ -184,22 +184,15 @@ You will receive a 'Login Succeeded' message. Now type the following:
 docker tag shanepeckham/cadrecommendations recommacs[hash].azurecr.io/cadrecommendations
 docker push recommacs[hash].azurecr.io/cadrecommendations
 ```
+Once this has completed, you will be able to see your container uploaded to the Container Registry within the portal, 
 
-![alt text](https://github.com/shanepeckham/CADLab_Loyalty/blob/master/Images/developerportal.png)
+![alt text](https://github.com/shanepeckham/CADScenario_Recommendations/blob/master/images/repos.png)
 
-Click APIs --> Contact List API --> Try It
+## 4. Deploy the container to App Services
 
-This will take you to the test harness of API Management. Click the eyeball and copy the value in the field Ocp-Apim-Subscription-Key, this is your APIMKey which we will use extensively, see below:
+We will now deploy the container to Linux App Services. Navigate to your App Service App, it will have the name recommapp[hash, select the *Docker Container* menu option, see below:
 
-![alt text](https://github.com/shanepeckham/CADLab_Loyalty/blob/master/Images/apimkey.png)
 
-You can test the API now and it should return values with a status of 200 Ok.
-
-We have now set up the first API in our process.
-
-## 4. Install the legacy Ticket API on the VM
-
-We could deploy this script as a custom script extension on the VM but that will complicate troubleshooting in a lab scenario so we will manually connect to the machine and run the build script, it is a single install script that will set up everything required.
 
 Navigate to your VM, the default name will be CADLegacyAPI[hash] and navigate to the Overview blade and copy the value in the field Public IP Address/DNS label, see below:
 
