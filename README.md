@@ -175,10 +175,9 @@ Now we will push the image up to the Azure Container Registry, enter the followi
 ``` docker login recommacs[hash].azurecr.io
 ```
 
+To get the username and password, navigate to the *Access Keys* blade, see below:
 
-See below:
-
-![alt text](https://github.com/shanepeckham/CADLab_Loyalty/blob/master/Images/importapidetails.png)
+![alt text](https://github.com/shanepeckham/CADScenario_Recommendations/blob/master/images/acskeys.png)
 
 You will now have imported an API that will now be accessible from the API Gateway. You can test it by clicking on Developer Portal, see below:
 
