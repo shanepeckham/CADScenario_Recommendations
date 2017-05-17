@@ -463,7 +463,6 @@
             "name": "[variables('sites_recommendationsapp8_name')]",
             "apiVersion": "2015-08-01",
             "location": "West Europe",
-            "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('serverfarms_ServicePlan5265b961_8950_name'))]",
             "tags": {
                },
             "properties": {
@@ -513,7 +512,8 @@
                             "value": ""
                         }
                     ]
-                }
+                },
+                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('serverfarms_ServicePlan5265b961_8950_name'))]"
             },
             "dependsOn": [
                 "[resourceId('Microsoft.Web/serverfarms', variables('serverfarms_ServicePlan5265b961_8950_name'))]"
