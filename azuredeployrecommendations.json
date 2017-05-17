@@ -489,7 +489,7 @@
                     }
                 ],
                 "siteConfig": {
-                    "linuxFxVersion": "[concat('DOCKER|', toUpper(variables('ACRName')), '.AZURECR.IO), toUpper(parameters('dockerImageName')))]",
+                    "linuxFxVersion": "[concat('DOCKER|', toUpper(variables('ACRName')), '.AZURECR.IO', toUpper(parameters('dockerImageName')))]",
                     "appSettings": [
                         {
                             "name": "PORT",
