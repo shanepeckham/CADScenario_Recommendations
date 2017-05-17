@@ -452,7 +452,8 @@
             "location": "West Europe",
             "properties": {
                 "name": "[variables('serverfarms_ServicePlan5265b961_8950_name')]",
-                "numberOfWorkers": 1
+                "numberOfWorkers": 1,
+                "reserved":true
             },
             "dependsOn": []
         },
