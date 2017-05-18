@@ -162,7 +162,8 @@ Click on the *Quick Start* blade, this will provide you with the relevant comman
 
 Now start a command/terminal window, create a directory called CADRecommendations and type the following:
 
-``` docker pull shanepeckham\cadrecommendations
+``` 
+docker pull shanepeckham\cadrecommendations
 ```
 This will pull down the container image to your local machine that we will use for our API later on.
 
@@ -172,7 +173,9 @@ You should see a status similar to below:
 
 Now we will push the image up to the Azure Container Registry, enter the following (from the quickstart screen):
 
-``` docker login recommacs[hash].azurecr.io
+``` 
+docker login recommacs[hash].azurecr.io
+
 ```
 
 To get the username and password, navigate to the *Access Keys* blade, see below:
@@ -192,12 +195,11 @@ Once this has completed, you will be able to see your container uploaded to the 
 
 We will now deploy the container to Linux App Services. Navigate to your App Service App, it will have the name recommapp[hash, select the *Docker Container* menu option. We now need to add the provisioned container registry and uploaded container details. Enter the following values:
 
-*Image Source*: 'Private Registry'
-*Image and optional Tag*: ```recommendationsacs[hash].azurecr.io/cadrecommendations:latest``` This is your registry
-*Server URL*: ```https://recommendationsacs[hash].azurecr.io```
-*Username*: The username that is in the Container Registry Access Keys blade
-*Password*: The password that is in the Container Registry Access Keys blade
-
+* Image Source: 'Private Registry'
+* Image and optional Tag: ```recommendationsacs[hash].azurecr.io/cadrecommendations:latest``` This is your registry
+* Server URL: ```https://recommendationsacs[hash].azurecr.io```
+* Username: The username that is in the Container Registry Access Keys blade
+* Password: The password that is in the Container Registry Access Keys blade
 
 Navigate to your VM, the default name will be CADLegacyAPI[hash] and navigate to the Overview blade and copy the value in the field Public IP Address/DNS label, see below:
 
