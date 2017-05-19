@@ -75,7 +75,7 @@
            "type": "string"
         },
         "dockerImageName": {
-           "defaultValue": "RecommendationsACS",
+           "defaultValue": "CADRecommendations",
            "type": "string"
         },
         "vmSize": {
