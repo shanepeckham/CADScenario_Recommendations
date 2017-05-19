@@ -509,7 +509,7 @@ Click APIs --> Recommendations List API --> recommendations_getById --> Try It
 
 This will take you to the test harness of API Management. Click the eyeball and copy the value in the field Ocp-Apim-Subscription-Key, this is your APIMKey which we will use extensively, see below:
 
-![alt text](https://github.com/shanepeckham/CADLab_Loyalty/blob/master/Images/apimkey.png)
+![alt text](https://github.com/shanepeckham/CADScenario_Recommendations/blob/master/images/apimkey.png)
 
 You can test the API now and it should return values with a status of 200 Ok. Enter a value of 1 for the itemId, and you should see results similar to below if you used the coffee dataset:
 ```
