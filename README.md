@@ -863,13 +863,60 @@ With the following visual representation of the pipeline and policies:
 
 ![alt text](https://github.com/shanepeckham/CADScenario_Recommendations/blob/master/images/fullpipeline.png)
 
-Now we can change the value in the logic app to accept the id field dynamically.
+Now we can change the value in the logic app to accept the id field dynamically. If all works we should now get an error from the logic app as if we invoke the API with id=1 we will get the following error:
 
+![alt text](https://github.com/shanepeckham/CADScenario_Recommendations/blob/master/images/fileexists.png)
 
+We now need to add exception handling to our logic app to ensure that we update a file if it already exists. Now add a  *File System - Update File* step after the *File System - Create File*.
 
+![alt text](https://github.com/shanepeckham/CADScenario_Recommendations/blob/master/images/updatefile.png)
 
+We want to determine the file name dynamically so that we can update it, see below:
 
+![alt text](https://github.com/shanepeckham/CADScenario_Recommendations/blob/master/images/triggerbody.png)
 
+This is what my filename contents look like:
+
+```
+\\legacyxml\SHOPPINGXML\@{triggerBody()?['id']}.xml
+```
+
+Now we want to make sure that the Update Step only runs if the Create File step fails. We can do by adding exception handling to the logic app. We can amend the *Run After* step of the Update step to only run if the Create Step fails, see below:
+
+```
+"runAfter": {
+	    "Create_file": [
+		"Failed"
+	    ]
+},
+```
+So my logic app Update Step in the Code View now looks like this:
+```
+  "Update_file": {
+                "inputs": {
+                    "body": "@triggerBody()?['xml']",
+                    "host": {
+                        "api": {
+                            "runtimeUrl": "https://logic-apis-westeurope.azure-apim.net/apim/filesystem"
+                        },
+                        "connection": {
+                            "name": "@parameters('$connections')['filesystem']['connectionId']"
+                        }
+                    },
+                    "method": "put",
+                    "path": "/datasets/default/files/@{encodeURIComponent(encodeURIComponent('XFxsZWdhY3l4bWxcU0hPUFBJTkdYTUxcMS54bWw='))}"
+                },
+                "metadata": {
+                    "XFxsZWdhY3l4bWxcU0hPUFBJTkdYTUxcMS54bWw=": "\\\\legacyxml\\SHOPPINGXML\\@{triggerBody()?['id']}.xml"
+                },
+                "runAfter": {
+                    "Create_file": [
+                        "Failed"
+                    ]
+                },
+                "type": "ApiConnection"
+            }
+```
 
 
 
