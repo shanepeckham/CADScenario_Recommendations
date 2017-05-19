@@ -580,7 +580,49 @@ Here we will add the <json-to-xml> policy after the base section:
 ```
 Click Save. Your pipeline should look like the image below:
 
-![alt text](https://github.com/shanepeckham/CADLab_Loyalty/blob/master/Images/jsonxml.png)
+![alt text](https://github.com/shanepeckham/CADScenario_Recommendations/blob/master/images/jsonxml.png)
+
+We can now test the API within the API Management portal, test the same method again as above but add the following header:
+
+Accept : application/xml
+
+You should now get a chunked xml response similar to below:
+
+Transfer-Encoding: chunked
+Ocp-Apim-Trace-Location: https://apimgmtsttosp2ocbnmt9rah.blob.core.windows.net/apiinspectorcontainer/PGQhJTrzr8_m0zLxkafqSg2-4?sv=2015-07-08&sr=b&sig=ezgXZOvffG4FLR3wtisqI5HUTu86PulE3BnVy%2BAsbEI%3D&se=2017-05-20T15%3A37%3A38Z&sp=r&traceId=2cd53d5ab5834c6483cea5f4ba1340b8
+Date: Fri, 19 May 2017 15:37:38 GMT
+ETag: W/"18d-rykcPkfko79ztLN6R5uIow"
+Set-Cookie: ARRAffinity=f6ac135c52b048d91b92cc79c27b985ddd7ffd33d5b3fa221fdb235825d7cb12;Path=/;Domain=recommapp83ikxnbrmeyocq.azurewebsites.net
+Content-Type: application/xml
+
+<Document>
+	<Array>
+		<recommendedItems>
+			<items>
+				<id>3</id>
+				<name> Cappucino</name>
+			</items>
+			<rating>0.502396748986747</rating>
+			<reasoning>Default recommendation for ' Americano'</reasoning>
+		</recommendedItems>
+		<recommendedItems>
+			<items>
+				<id>1</id>
+				<name> Latte</name>
+			</items>
+			<rating>0.502396748986745</rating>
+			<reasoning>Default recommendation for ' Americano'</reasoning>
+		</recommendedItems>
+		<recommendedItems>
+			<items>
+				<id>4</id>
+				<name> Espresso</name>
+			</items>
+			<rating>0.502396748986743</rating>
+			<reasoning>Default recommendation for ' Americano'</reasoning>
+		</recommendedItems>
+	</Array>
+</Document>
 
 
 
