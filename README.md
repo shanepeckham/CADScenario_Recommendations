@@ -427,50 +427,33 @@ Now if you navigate to the site and add */docs* on to the end of the URL, you wi
 
 ![alt text](https://github.com/shanepeckham/CADScenario_Recommendations/blob/master/images/swagger.png)
  
+### Associate the Recommendations model URL with the API App
 
-## 6. Import Function Storage hooks
+Our API app will check for two applications settings in order to be able to proxy the request to the Recommendations API, so we need to add these. Navigate to the *Application Settings* pane and add two entries in the 'App Settings' section, namely:
 
-Click on the Deploy button below.
+recommendationsAppURL  *https://westus.api.cognitive.microsoft.com/recommendations/v4.0/models/[modelId]/recommend/item?itemIds=*
+recommendationsKey [RecommendationsCS.key]
 
-<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fshanepeckham%2FCADHackathon_Loyalty%2Fmaster%2Fazuredeployfunctionsettings.json" target="_blank">
-    <img src="http://azuredeploy.net/deploybutton.png"/>
-</a>
+Save the settings and navigate to the *Overview* section and Stop and then Start your API App as opposed to clicking the Restart button - a preview gotcha.
 
-NB - Make sure you use the same Deployment Name as you did in Step 1.
+# The Lab component
 
-Update: Azure functions has recently changed and the new release is not deploying the code correctly. Navigate to Platform Features --> Deployment Options, see below:
+We want to front our Container API behind API management and use API Management to convert the JSON return from the Recommendations API to XML. We need to do this using the API Management JSON-->XML policy. We also want to redirect the resultant XML response from the Container API to the On-Premise Windows Server File system so that it can be written for the legacy web application. To do this we need create a Logic App that will connect to the On-Premise file system using the On-Premise Data Gateway.
 
-![alt text](https://github.com/shanepeckham/CADLab_Loyalty/blob/master/Images/newfuncdeploy1.png)
+To summarise, the steps include:
+* Place the Container API behind API Management
+* Convert the response JSON to XML using an API Management Policy
+* Invoke a Logic App from an API Management Policy and pass the XML to it
+* Connect to the On-Premise Data Gateway with a Logic App and commit the XML file to the file System
+* Return a response to API Management so that it can be passed to the Container API
 
-In the pane on the right click the 'Sync' button. This will redploy the code and will take around 2-3 minutes, see below:
-
-![alt text](https://github.com/shanepeckham/CADLab_Loyalty/blob/master/Images/newfuncdeploy2.png)
-
-Once complete, click the Refresh icon as highlighted below and you should see the following:
-
-![alt text](https://github.com/shanepeckham/CADLab_Loyalty/blob/master/Images/newfuncdeploy3.png)
-
-You can test the function in the test harness within the function app itself, add this to the Request body:
-```
-{ "name": "hello" }
-```
-You should see the output look something like this:
-```
-{"couponUrl":"https://cadfuncstorrvhyzok7zv4gw.blob.core.windows.net/coupons/%5Bobject%20Object%5D.jpg?st=2017-03-14T20%3A27%3A59Z&se=2017-03-14T21%3A27%3A59Z&sp=r&sv=2015-12-11&sr=b&sig=6UUHFHY08JihUU8vT%2Fus%2Fot9Pl%2BZud6jaakMNTuCFZc%3D"} Status 200 Ok
-```
-Note, if you get an error upon first invocation, run it again and it should work. You are now ready to build the logic app.
-
-# The Logic App solution
+# The Lab solution
 
 ## SPOILER ALERT - this is the full solution, so only look here if you get stuck!
 
-We want to get the customer's details, find their last associated case and then check the feedback against it.
-
 ### The data model
 
-See the diagram below for the simplistic data model to help you query the right data.
 
-![alt text](https://github.com/shanepeckham/CADLab_Loyalty/blob/master/Images/DemoDataModel.jpg)
 
 Create a HTTP Request Step, click save - you will receive an endpoint upon save. 
 
