@@ -658,6 +658,12 @@ We will now reference this 'Named Value' inflight within the API Management requ
 
 In the Preview portal of the API Management component click the *APIS - PREVIEW* menu item and then 'Recommendations API' --> recommendations_getById --> Outbound Processing.
 
+We retrieve the *Name Value* with the following syntax:
+```
+  var logicappurl = "{{LogicAppURL}}";
+```
+We can then set the url to the logicappurl variable using the <set-url> section.
+
 Here we will add the <send-request> policy after the base section to invoke the Logic App url named value, see below:
 
 ```
@@ -670,19 +676,119 @@ Here we will add the <send-request> policy after the base section to invoke the 
                     </set-url>
             <set-method>POST</set-method>
 ```
+
 Click Save. Your pipeline should look like the image below:
 
 ![alt text](https://github.com/shanepeckham/CADScenario_Personalisation/blob/master/images/sendrequest.png)
 
+Let's test it now. When we run the API we can now see that the Logic app is onvoked by looking at the run history, see below:
+
+![alt text](https://github.com/shanepeckham/CADScenario_Personalisation/blob/master/images/logicrun.png)
+
+Now we want to add a json schema to our request step so that we can work more easily with the logic app - we want to pass in the id of the item searched for and also pass the xml into the logic app so that we can write it to a file system. We can generate a json schema online - I have used https://jsonschema.net/#/editor which has generated the following schema I can use:
+```
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "definitions": {},
+  "id": "http://example.com/example.json",
+  "properties": {
+    "id": {
+      "id": "/properties/id",
+      "type": "integer"
+    },
+    "xml": {
+      "id": "/properties/xml",
+      "type": "string"
+    }
+  },
+  "type": "object"
+}
+```
+Add this to the request step. Now we need to pass in the XML response to the logic app as JSON. Yes, that is right, we are going to pass XML inside a JSON request.
+
+Go back to the API Management <send-request> policy and add a JSON representation that conforms to the schema we have just added.
+
+We want to add the following to the <send-request> policy. 
+
+Firstly we will tell the Logic app to expect JSON, we will use the standard *Content-Type* header: 
+```
+ <set-header name="Content-Type" exists-action="override">
+                <value>application/json</value>
+            </set-header>
+```
+
+Now we will retrieve the xml within the response as a string and place it inside the JSON. 
+```
+var xml = context.Response.Body.As<string>(preserveContent: true); 
+```
+We will then create a JSON object and pass in the variables we want to pass. For now we will hard code the item id as we do not yet have this variable, see below.
 
 
+```
+ <set-header name="Content-Type" exists-action="override">
+                <value>application/json</value>
+            </set-header>
+            <set-body>
+                 @{
+                    var xml = context.Response.Body.As<string>(preserveContent: true); 
+                    
+                    var postBody = new JObject(
+                            new JProperty("id", 1),
+                            new JProperty("xml", xml)
+                            ).ToString();
+                            
+                    return postBody;
+                  }
+            </set-body>
 
+```
 
+Your full outbound policy should now look like this:
+```
+<policies>
+    <inbound>
+        <base/>
+    </inbound>
+    <backend>
+        <base/>
+    </backend>
+    <outbound>
+        <base/>
+        <json-to-xml apply="content-type-json" consider-accept-header="false"/>
+        <send-request mode="new" response-variable-name="response" timeout="10" ignore-error="false">
+            <set-url>
+                        @{
+                            var logicappurl = "{{LogicAppURL}}";
+                            return logicappurl;
+                        }
+                    </set-url>
+            <set-method>POST</set-method>
+             <set-header name="Content-Type" exists-action="override">
+                <value>application/json</value>
+            </set-header>
+            <set-body>
+                 @{
+                    var xml = context.Response.Body.As<string>(preserveContent: true); 
+                    
+                    var postBody = new JObject(
+                            new JProperty("id", 1),
+                            new JProperty("xml", xml)
+                            ).ToString();
+                            
+                    return postBody;
+                  }
+            </set-body>
+        </send-request>
+    </outbound>
+</policies>
+```
+We can now go and test it again, now in our logic app, if we open up the last run we should see the xml string in the Outputs step:
 
+![alt text](https://github.com/shanepeckham/CADScenario_Personalisation/blob/master/images/xmloutput.png)
 
+Now we can go and add a step to create the xml file on the Legacy File system. On the Logic app, after the Request step, add a *File System - Create File* step, see below:
 
-
-
+![alt text](https://github.com/shanepeckham/CADScenario_Personalisation/blob/master/images/logiccreatefile.png)
 
 
 
