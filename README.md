@@ -158,7 +158,7 @@ Navigate to Container Registry component provisioned within Azure, its name will
 
 Click on the *Quick Start* blade, this will provide you with the relevant commands to upload a container image to your registry, see below:
 
-![alt text](https://github.com/shanepeckham/CADScenario_Recommendations/blob/master/images/quickstartacs.png)
+![alt text](https://github.com/shanepeckham/CADScenario_Recommendations/blob/master/images/quicksstartacs.png)
 
 Now start a command/terminal window, create a directory called CADRecommendations and type the following:
 
