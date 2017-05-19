@@ -13,7 +13,7 @@ This repository will provision an environment that may be used as a Lab to build
 
 # What does it showcase?
 
-This solution brings together Infrastructure as a Service (IaaS), Platform as a Service (PaaS), Software as a Service (SaaS), Container as a Service (CaaS) and Serverless and Cognitive Services components on Microsoft Azure to build a realistic end to end scenario to generate recommendations for a customer based on other product purchase patterns using. This solution will show how an on-Premise XML File based legacy application can be quickly modernised to provide a microservice container based API for a front end such as a mobile application. Without needing to change any of the backend code, we will provide a modern microservice REST and JSON based API to front the legacy app.
+This solution brings together Infrastructure as a Service (IaaS), Platform as a Service (PaaS), Software as a Service (SaaS), Container as a Service (CaaS) and Serverless and Cognitive Services components on Microsoft Azure to build a realistic end to end scenario to generate recommendations for a customer based on other product purchase patterns using the Recommendations API. This solution will show how an on-Premise XML File based legacy application can be quickly modernised to provide a microservice container based API for a front end such as a mobile application. Without needing to change any of the backend code, we will provide a modern microservice REST and JSON based API to front the legacy app.
 
 # The end to end scenario
 
