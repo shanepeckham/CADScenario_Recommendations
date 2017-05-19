@@ -475,6 +475,116 @@ This will navigate you to the Publisher portal, select Import API, see below:
 
 Now enter the following values:
 
+* Select "From Url"
+* Paste your API URL from step 2 and add ``` /swagger ``` on the end e.g. http://recommapp[hash].azurewebsites.net/swagger
+* Select "Swagger" as the specification format
+* Select New API
+* Type "RecommendationsAPI" into the Web API URL Suffix field
+* Click Products and select "Unlimited"
+* Click Save
+
+See below:
+
+![alt text](https://github.com/shanepeckham/CADScenario_Recommendations/blob/master/images/recommendationsapi.png)
+
+Now we need to change the mask of the URL so that we can pass the item id in as a query param as opposed to as part of the URI. Navigate to the *Operations* tab for your newly imported Recommendations API and select the Operation 'recommendations_getById'. 
+
+In the signature section change the *URL Template* from:
+```
+/recommendations/{id}
+```
+to
+```
+/recommendations?id={id}
+```
+and Save, see below:
+
+![alt text](https://github.com/shanepeckham/CADScenario_Recommendations/blob/master/images/urltemplate.png)
+
+You will now have imported an API that will now be accessible from the API Gateway. You can test it by clicking on Developer Portal, see below:
+
+![alt text](https://github.com/shanepeckham/CADLab_Loyalty/blob/master/Images/developerportal.png)
+
+Click APIs --> Recommendations List API --> recommendations_getById --> Try It
+
+This will take you to the test harness of API Management. Click the eyeball and copy the value in the field Ocp-Apim-Subscription-Key, this is your APIMKey which we will use extensively, see below:
+
+![alt text](https://github.com/shanepeckham/CADLab_Loyalty/blob/master/Images/apimkey.png)
+
+You can test the API now and it should return values with a status of 200 Ok. Enter a value of 1 for the itemId, and you should see results similar to below if you used the coffee dataset:
+```
+Ocp-Apim-Trace-Location: https://apimgmtsttosp2ocbnmt9rah.blob.core.windows.net/apiinspectorcontainer/PGQhJTrzr8_m0zLxkafqSg2-1?sv=2015-07-08&sr=b&sig=EXe6rD%2BXYy0hZyJTfBzh0xLbBtX5Wg42o%2FcaD%2BXURPU%3D&se=2017-05-20T15%3A12%3A38Z&sp=r&traceId=3c06aa1150004ebcac21c676f888fdfe
+Date: Fri, 19 May 2017 15:12:38 GMT
+ETag: W/"18d-rykcPkfko79ztLN6R5uIow"
+Set-Cookie: ARRAffinity=f6ac135c52b048d91b92cc79c27b985ddd7ffd33d5b3fa221fdb235825d7cb12;Path=/;Domain=recommapp83ikxnbrmeyocq.azurewebsites.net
+Content-Length: 397
+Content-Type: application/json; charset=utf-8
+
+[
+  {
+    "recommendedItems": [
+      {
+        "items": [
+          {
+            "id": "3",
+            "name": " Cappucino"
+          }
+        ],
+        "rating": 0.502396748986747,
+        "reasoning": [
+          "Default recommendation for ' Americano'"
+        ]
+      },
+      {
+        "items": [
+          {
+            "id": "1",
+            "name": " Latte"
+          }
+        ],
+        "rating": 0.502396748986745,
+        "reasoning": [
+          "Default recommendation for ' Americano'"
+        ]
+      },
+      {
+        "items": [
+          {
+            "id": "4",
+            "name": " Espresso"
+          }
+        ],
+        "rating": 0.502396748986743,
+        "reasoning": [
+          "Default recommendation for ' Americano'"
+        ]
+      }
+    ]
+  }
+]
+```
+
+### Convert the response JSON to XML using an API Management Policy
+
+Let's add a policy to handle the conversion from JSON to XML. We need to add this in the API Response pipeline after the JSON has been retrieved from the backend event. 
+
+In the Preview portal of the API Management component click the *APIS - PREVIEW* menu item and then 'Recommendations API' --> recommendations_getById --> Outbound Processing.
+
+Here we will add the <json-to-xml> policy after the base section:
+
+```
+    <outbound>
+        <base/>
+        <json-to-xml apply="content-type-json" consider-accept-header="false"/>
+    </outbound>
+```
+Click Save. Your pipeline should look like the image below:
+
+![alt text](https://github.com/shanepeckham/CADLab_Loyalty/blob/master/Images/jsonxml.png)
+
+
+
+
 
 
 
