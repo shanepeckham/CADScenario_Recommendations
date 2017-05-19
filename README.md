@@ -652,7 +652,7 @@ logicAppURL
 ```
 Next add your Logic App endpoint that you copied into the 'Value' field and click 'This is a secret' tickbox and click 'Create', see below:
 
-![alt text](https://github.com/shanepeckham/CADScenario_Personalisation/blob/master/images/apimnamedvalue.png)
+![alt text](https://github.com/shanepeckham/CADScenario_Recommendations/blob/master/images/apimnamedvalue.png)
 
 We will now reference this 'Named Value' inflight within the API Management request.
 
@@ -679,11 +679,11 @@ Here we will add the <send-request> policy after the base section to invoke the 
 
 Click Save. Your pipeline should look like the image below:
 
-![alt text](https://github.com/shanepeckham/CADScenario_Personalisation/blob/master/images/sendrequest.png)
+![alt text](https://github.com/shanepeckham/CADScenario_Recommendations/blob/master/images/sendrequest.png)
 
 Let's test it now. When we run the API we can now see that the Logic app is onvoked by looking at the run history, see below:
 
-![alt text](https://github.com/shanepeckham/CADScenario_Personalisation/blob/master/images/logicrun.png)
+![alt text](https://github.com/shanepeckham/CADScenario_Recommendations/blob/master/images/logicrun.png)
 
 Now we want to add a json schema to our request step so that we can work more easily with the logic app - we want to pass in the id of the item searched for and also pass the xml into the logic app so that we can write it to a file system. We can generate a json schema online - I have used https://jsonschema.net/#/editor which has generated the following schema I can use:
 ```
@@ -784,11 +784,11 @@ Your full outbound policy should now look like this:
 ```
 We can now go and test it again, now in our logic app, if we open up the last run we should see the xml string in the Outputs step:
 
-![alt text](https://github.com/shanepeckham/CADScenario_Personalisation/blob/master/images/xmloutput.png)
+![alt text](https://github.com/shanepeckham/CADScenario_Recommendations/blob/master/images/xmloutput.png)
 
 Now we can go and add a step to create the xml file on the Legacy File system. On the Logic app, after the Request step, add a *File System - Create File* step, see below:
 
-![alt text](https://github.com/shanepeckham/CADScenario_Personalisation/blob/master/images/logiccreatefile.png)
+![alt text](https://github.com/shanepeckham/CADScenario_Recommendations/blob/master/images/logiccreatefile.png)
 
 
 
