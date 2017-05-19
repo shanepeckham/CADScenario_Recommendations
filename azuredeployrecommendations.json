@@ -71,11 +71,11 @@
            "type": "string"
         },
          "ACRName": {
-           "defaultValue": "RecommACS",
+           "defaultValue": "recommacs",
            "type": "string"
         },
         "dockerImageName": {
-           "defaultValue": "CADRecommendations",
+           "defaultValue": "cadrecommendations",
            "type": "string"
         },
         "vmSize": {
