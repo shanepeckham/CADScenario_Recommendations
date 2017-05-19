@@ -790,6 +790,40 @@ Now we can go and add a step to create the xml file on the Legacy File system. O
 
 ![alt text](https://github.com/shanepeckham/CADScenario_Recommendations/blob/master/images/logiccreatefile.png)
 
+Select the root directory, name the file [id].xml and pass in the xml string, see below:
+
+![alt text](https://github.com/shanepeckham/CADScenario_Recommendations/blob/master/images/createfileparams.png)
+
+You should see the following output:
+
+![alt text](https://github.com/shanepeckham/CADScenario_Recommendations/blob/master/images/createfilesuccess.png)
+
+And checking the Legacy OS file system we can see the file created:
+
+![alt text](https://github.com/shanepeckham/CADScenario_Recommendations/blob/master/images/osfile.png)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
