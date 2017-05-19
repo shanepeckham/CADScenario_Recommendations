@@ -802,11 +802,68 @@ And checking the Legacy OS file system we can see the file created:
 
 ![alt text](https://github.com/shanepeckham/CADScenario_Recommendations/blob/master/images/osfile.png)
 
+#### Now let's get the itemId input parameter to pass it dynamically to the File System
 
+We now want to capture the input parameter for id as it is passed in the initial request. We can declare a runtime variable to store this value in the inbound part of the request pipeline. 
 
+The following is how we can declare the id variable and retrieve the *id* query parameter:
+```
+ <set-variable name="id" value="@(context.Request.Url.QueryString)"/>
+```
+Now let's replace the hardcoded id value in the outbound section with our new variable, we can retrieve a variable in-policy with the following syntax:
+```
+var id = context.Request.Url.Query.GetValueOrDefault("id");
+```
 
+We can now add this to the inbound section, your policy should now look like this:
+```
+<policies>
+    <inbound>
+        <base/>
+        <set-variable name="id" value="@(context.Request.Url.QueryString)"/>
+    </inbound>
+    <backend>
+        <base/>
+    </backend>
+    <outbound>
+        <base/>
+        <json-to-xml apply="content-type-json" consider-accept-header="false"/>
+        <send-request mode="new" response-variable-name="response" timeout="10" ignore-error="false">
+            <set-url>
+                        @{
+                            var logicappurl = "{{LogicAppURL}}";
+                            return logicappurl;
+                        }
+                    </set-url>
+            <set-method>POST</set-method>
+            <set-header name="Content-Type" exists-action="override">
+                <value>application/json</value>
+            </set-header>
+            <set-body>
+                 @{
+                    var xml = context.Response.Body.As<string>(preserveContent: true); 
+                    var id = context.Request.Url.Query.GetValueOrDefault("id");
+                    
+                    var postBody = new JObject(
+                            new JProperty("id", id),
+                            new JProperty("xml", xml)
+                            ).ToString();
+                            
+                    return postBody;
+                  }
+            </set-body>
+        </send-request>
+    </outbound>
+    <on-error>
+        <base/>
+    </on-error>
+</policies>
+```
+With the following visual representation of the pipeline and policies:
 
+![alt text](https://github.com/shanepeckham/CADScenario_Recommendations/blob/master/images/fullpipeline.png)
 
+Now we can change the value in the logic app to accept the id field dynamically.
 
 
 
