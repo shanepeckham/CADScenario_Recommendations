@@ -450,7 +450,8 @@ To summarise, the steps include:
 * Place the Container API behind API Management
 * Convert the response JSON to XML using an API Management Policy
 * Invoke a Logic App from an API Management Policy and pass the XML to it
-* Connect to the On-Premise Data Gateway with a Logic App and commit the XML file to the file System
+* Connect to the On-Premise Data Gateway with a Logic App and commit the XML file to the file System. The file name must be the item id
+* Only create the file if it does not exist, otherwise update the existing file
 * Return a response to API Management so that it can be passed to the Container API
 
 # The Lab solution
@@ -587,7 +588,7 @@ We can now test the API within the API Management portal, test the same method a
 Accept : application/xml
 
 You should now get a chunked xml response similar to below:
-
+```
 Transfer-Encoding: chunked
 Ocp-Apim-Trace-Location: https://apimgmtsttosp2ocbnmt9rah.blob.core.windows.net/apiinspectorcontainer/PGQhJTrzr8_m0zLxkafqSg2-4?sv=2015-07-08&sr=b&sig=ezgXZOvffG4FLR3wtisqI5HUTu86PulE3BnVy%2BAsbEI%3D&se=2017-05-20T15%3A37%3A38Z&sp=r&traceId=2cd53d5ab5834c6483cea5f4ba1340b8
 Date: Fri, 19 May 2017 15:37:38 GMT
@@ -624,7 +625,54 @@ Content-Type: application/xml
 	</Array>
 </Document>
 
+```
+We have now successfully converted the outbound JSON with XML before it is sent back to the requestor.
 
+### Invoke a Logic App from an API Management Policy and pass the XML to it
+
+Now we want to invoke a Logic app inflight from API Management to synchronously write the RecommendationsAPI XML to the Legacy File system and return a response. 
+
+Create a new Logic App within your Resource Group and in the same location as your other components.
+
+The first thing we want to do is create a HTTP Request-Response Step, click save - you will receive an endpoint upon save - copy this value, see below:
+
+![alt text](https://github.com/shanepeckham/CADScenario_Personalisation/blob/master/images/logicreqresp.png)
+
+Select 'Use this template'
+
+![alt text](https://github.com/shanepeckham/CADScenario_Personalisation/blob/master/images/logicresprep2.png)
+
+Now click Save and copy the endpoint
+
+![alt text](https://github.com/shanepeckham/CADScenario_Personalisation/blob/master/images/copylogicurl.png)
+
+Navigate back to your API Management component. Select *Named Values - PREVIEW* and click add, add the following value:
+```
+logicAppURL
+```
+Next add your Logic App endpoint that you copied into the 'Value' field and click 'This is a secret' tickbox and click 'Create', see below:
+
+![alt text](https://github.com/shanepeckham/CADScenario_Personalisation/blob/master/images/apimnamedvalue.png)
+
+We will now reference this 'Named Value' inflight within the API Management request.
+
+In the Preview portal of the API Management component click the *APIS - PREVIEW* menu item and then 'Recommendations API' --> recommendations_getById --> Outbound Processing.
+
+Here we will add the <send-request> policy after the base section to invoke the Logic App url named value, see below:
+
+```
+ <send-request mode="new" response-variable-name="response" timeout="10" ignore-error="false">
+            <set-url>
+                        @{
+                            var logicappurl = "{{LogicAppURL}}";
+                            return logicappurl;
+                        }
+                    </set-url>
+            <set-method>POST</set-method>
+```
+Click Save. Your pipeline should look like the image below:
+
+![alt text](https://github.com/shanepeckham/CADScenario_Personalisation/blob/master/images/sendrequest.png)
 
 
 
