@@ -922,6 +922,11 @@ Now if you run the Logic app with id = 1 you should get the following run detail
 
 ![alt text](https://github.com/shanepeckham/CADScenario_Recommendations/blob/master/images/exception.png)
 
+You can now test the process with id = 2 and you should see the following:
+
+![alt text](https://github.com/shanepeckham/CADScenario_Recommendations/blob/master/images/createnew.png)
+
+![alt text](https://github.com/shanepeckham/CADScenario_Recommendations/blob/master/images/newfile.png)
 
 
 
