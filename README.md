@@ -425,7 +425,7 @@ Request body:
 }
 
 ```
-This will return a build Id
+This will return a build Id which we will refer to as buildId.
 
 ## 6. Import Function Storage hooks
 
