@@ -13,11 +13,11 @@ This repository will provision an environment that may be used as a Lab to build
 
 # What does it showcase?
 
-This solution brings together Infrastructure as a Service (IaaS), Platform as a Service (PaaS), Software as a Service (SaaS), Container as a Service (CaaS) and Serverless and Cognitive Services components on Microsoft Azure to build a realistic end to end scenario to generate recommendations for a customer based on other product purchase patterns using the Recommendations API. This solution will show how an on-Premise XML File based legacy application can be quickly modernised to provide a microservice container based API for a front end such as a mobile application. Without needing to change any of the backend code, we will provide a modern microservice REST and JSON based API to front the legacy app.
+This solution brings together Infrastructure as a Service (IaaS), Platform as a Service (PaaS), Software as a Service (SaaS), Container as a Service (CaaS) and Serverless and Cognitive Services components on Microsoft Azure to build a realistic end to end scenario to generate recommendations for a customer based on other product purchase patterns using the Recommendations API. This solution will show how an on-Premise XML File based legacy application can be quickly modernised using a microservice container based API for a front end. Without needing to change any of the backend code, we will provide a modern microservice REST and JSON based API to front the legacy app that can serve a mobile app.
 
 # The end to end scenario
 
-This solution will determine the list of recommended products for a particular customer and return the response in JSON. An asynchronous process will convert the message to XML and write it back to an On-Premise legacy XML File system.
+This solution will determine the list of recommended products for a particular customer and return the response in JSON. A synchronous process will convert the message to XML and write it back to an On-Premise legacy XML File system.
 
 # The solution aims to show the following:
 
@@ -37,7 +37,7 @@ The following technology components are used in this solution:
 *	Azure networking to isolate legacy workloads (IaaS)
 *	API Management to govern APIs and to perform automated JSON<-->XML conversion and amend requests inflight
 *	Azure Logic apps to provide serverless integration that is accessible to non-developers (Serveless)
-*   The Logic apps on-Premise Data Gateway to connect to an on-Premise machine or a VM in an isolated VNET
+*       The Logic apps on-Premise Data Gateway to connect to an on-Premise machine or a VM in an isolated VNET
 *	Azure Resource Manager templates to automate the provisioning and inflation of a full environment
 
 # Solution flow
