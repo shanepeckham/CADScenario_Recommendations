@@ -39,6 +39,7 @@ The following technology components are used in this solution:
 *	Azure Logic apps to provide serverless integration that is accessible to non-developers (Serveless)
 *       The Logic apps on-Premise Data Gateway to connect to an on-Premise machine or a VM in an isolated VNET
 *	Azure Resource Manager templates to automate the provisioning and inflation of a full environment
+*       The Logic Apps On-Premise Data Gateway
 
 # Solution flow
 
