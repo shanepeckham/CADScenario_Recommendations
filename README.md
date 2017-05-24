@@ -17,7 +17,7 @@ This solution brings together Infrastructure as a Service (IaaS), Platform as a 
 
 # The end to end scenario
 
-This solution will determine the list of recommended products for a particular customer and return the response in JSON. A synchronous process will convert the message to XML and write it back to an On-Premise legacy XML File system.
+This solution will determine the list of recommended products for a particular customer and return the response in JSON. A synchronous process will convert the message to XML and write it back to an On-Premise legacy XML File system. The essence of this lab is to show how a legacy application can provide a modern user experience (in this case serving recommendations to a mobile app) wihtout needing to refactor the legacy application. 
 
 # The solution aims to show the following:
 
