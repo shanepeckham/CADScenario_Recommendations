@@ -42,7 +42,7 @@ The following technology components are used in this solution:
 
 # Solution flow
 
-![alt text](https://github.com/shanepeckham/CADScenario_Recommendations/blob/master/images/Topology.png "Solution Flow")
+![alt text](https://github.com/shanepeckham/CADScenario_Recommendations/blob/master/images/topology2.png "Solution Flow")
 
 # The Lab component
 
