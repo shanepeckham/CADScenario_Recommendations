@@ -163,7 +163,7 @@ Click on the *Quick Start* blade, this will provide you with the relevant comman
 Now start a command/terminal window, create a directory called CADRecommendations and type the following:
 
 ``` 
-docker pull shanepeckham\cadrecommendations
+docker pull shanepeckham/cadrecommendations
 ```
 This will pull down the container image to your local machine that we will use for our API later on.
 
